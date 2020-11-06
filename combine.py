@@ -40,7 +40,7 @@ def combine_files(file_list, output_file, headers):
     if os.path.exists(output_file):
         os.remove(output_file)
 
-    with open(output_file, "a") as output_csv:
+    with open(output_file, "a", newline='') as output_csv:
         csv_writer = csv.writer(output_csv)
         csv_writer.writerow(headers)
         
