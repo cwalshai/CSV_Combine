@@ -1,6 +1,6 @@
 import os, glob
 import csv
-from progress.bar import Bar
+from tqdm import tqdm
 
 VERSION="0.1"
 
@@ -44,7 +44,7 @@ def combine_files(file_list, output_file, headers):
         csv_writer = csv.writer(output_csv)
         csv_writer.writerow(headers)
         
-        for filename in Bar('Processing').iter(file_list):
+        for filename in tqdm(file_list):
             with open(filename, "r") as csv_file:
                 csv_reader = csv.reader(csv_file)
                 linecount=0
@@ -58,18 +58,21 @@ def run(input_dir, output_file):
     file_list = glob.glob("*.csv")
     file_path_list = [os.path.join(input_dir,x) for x in file_list]
 
-    print("CSV Combine V{}...\n".format(VERSION))
+    print("CSV Concatenate V{}\n----------------\n".format(VERSION))
 
-    match, headers = check_headers_match(file_path_list)
+    list_len = len(file_path_list)
+    if list_len>0:
+        match, headers = check_headers_match(file_path_list)
 
-    if match:
-        print("Headers match, continuing..., please wait.\n")
+        if match:
+            print("Headers match, continuing to concatenate {} files, please wait.\n".format(list_len))
+        else:
+            print("Headers do not match, check files for consistency.\n")
+            exit(1)
+
+        combine_files(file_path_list, output_file, headers)
     else:
-        print("Headers do not match, check files for consistency.\n")
-        exit(1)
-
-    combine_files(file_path_list, output_file, headers)
-    
+        print("No files found to combine.")
 
 
 
@@ -79,3 +82,5 @@ if __name__ == "__main__":
     output_file = "combined.csv"
 
     run(input_dir, output_file)
+
+    print("\nComplete!\nConcatenated files output to {}.".format(output_file))
