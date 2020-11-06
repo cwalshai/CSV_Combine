@@ -1,0 +1,1 @@
+pyinstaller --name "OracleBio_Combine" --onefile .\combine.py

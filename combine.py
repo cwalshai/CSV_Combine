@@ -71,6 +71,9 @@ def run(input_dir, output_file):
             exit(1)
 
         combine_files(file_path_list, output_file, headers)
+
+        print("\nComplete!\nConcatenated files output to {}.".format(output_file))
+
     else:
         print("No files found to combine.")
 
@@ -83,4 +86,4 @@ if __name__ == "__main__":
 
     run(input_dir, output_file)
 
-    print("\nComplete!\nConcatenated files output to {}.".format(output_file))
+    input("\n\nPress any key to exit...")

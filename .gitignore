@@ -1,3 +1,7 @@
 virt_env
 *.csv
 *.csvx
+dist
+build
+__pycache__
+*.spec
