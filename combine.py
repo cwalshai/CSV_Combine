@@ -86,4 +86,4 @@ if __name__ == "__main__":
 
     run(input_dir, output_file)
 
-    input("\n\nPress any key to exit...")
+    input("\n\nPress return to exit...")
